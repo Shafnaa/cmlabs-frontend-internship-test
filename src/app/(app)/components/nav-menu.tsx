@@ -20,7 +20,7 @@ export function NavMenu({
   meals,
 }: {
   categories: { title: string; href: string; description: string }[];
-  meals: { strMeal: string; idMeal: string; strCategory: string }[];
+  meals: { title: string; href: string }[];
 }) {
   return (
     <NavigationMenu className="hidden md:flex">
@@ -53,19 +53,9 @@ export function NavMenu({
           <NavigationMenuContent>
             <ScrollArea className="h-96 w-full overflow-y-scroll">
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {meals.map(
-                  (meal: {
-                    strMeal: string;
-                    idMeal: string;
-                    strCategory: string;
-                  }) => (
-                    <ListItem
-                      key={meal.idMeal}
-                      title={meal.strMeal}
-                      href={`/${meal.strCategory}/${meal.idMeal}`}
-                    />
-                  )
-                )}
+                {meals.map((meal, idx) => (
+                  <ListItem key={idx} title={meal.title} href={meal.href} />
+                ))}
               </ul>
             </ScrollArea>
           </NavigationMenuContent>

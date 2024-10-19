@@ -24,7 +24,7 @@ const CategoryCard = ({
               className="w-full h-full object-cover brightness-50 backdrop-brightness-125 backdrop-blur-sm"
             />
           </div>
-          <h3 className="relative text-white text-3xl text-center">{category.strCategory}</h3>
+          <h3 className="relative text-white md:text-3xl text-center">{category.strCategory}</h3>
         </div>
       </Link>
     </li>

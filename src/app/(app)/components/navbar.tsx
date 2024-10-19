@@ -2,52 +2,30 @@ import { Icons } from "@/components/icons";
 import Link from "next/link";
 import React from "react";
 import { NavMenu } from "./nav-menu";
+import NavMenuMobile from "./nav-menu-mobile";
+import { getCategories, getMealsByCategory } from "@/lib/actions";
 
 const Navbar = async () => {
-  const res = await fetch(
-    "https://www.themealdb.com/api/json/v1/1/categories.php",
-    {
-      cache: "force-cache",
-    }
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch");
-  }
-
-  const data = await res.json();
+  const categories = await getCategories();
 
   const meals: {
-    strMeal: string;
-    idMeal: string;
-    strCategory: string;
+    title: string;
+    href: string;
   }[] = [];
 
-  data.categories.forEach(
+  categories.forEach(
     async (category: {
       idCategory: string;
       strCategory: string;
       strCategoryThumb: string;
       strCategoryDescription: string;
     }) => {
-      const res = await fetch(
-        `http://www.themealdb.com/api/json/v1/1/filter.php?c=${category.strCategory}`,
-        {
-          cache: "force-cache",
-        }
-      );
+      const mealsByCategory = await getMealsByCategory(category.strCategory);
 
-      if (!res.ok) {
-        throw new Error("Failed to fetch");
-      }
-
-      const data = await res.json();
-
-      data.meals.forEach((meal: { strMeal: string; idMeal: string }) => {
+      mealsByCategory.forEach((meal: { strMeal: string; idMeal: string }) => {
         meals.push({
-          strMeal: meal.strMeal,
-          idMeal: meal.idMeal,
-          strCategory: category.strCategory,
+          title: meal.strMeal,
+          href: `/${category.strCategory}/${meal.idMeal}`,
         });
       });
     }
@@ -55,7 +33,7 @@ const Navbar = async () => {
 
   return (
     <>
-      <header className="w-full sticky top-0 py-4 z-50 bg-white shadow-md">
+      <header className="w-full sticky top-0 py-4 z-50 bg-white shadow-md px-2">
         <nav className="container mx-auto flex justify-between">
           <Link href={"/"} className="flex items-center gap-2">
             <Icons.logo className="w-8 h-8" />
@@ -63,7 +41,24 @@ const Navbar = async () => {
           </Link>
 
           <NavMenu
-            categories={data.categories.map(
+            categories={categories.map(
+              (category: {
+                idCategory: string;
+                strCategory: string;
+                strCategoryThumb: string;
+                strCategoryDescription: string;
+              }) => {
+                return {
+                  title: category.strCategory,
+                  href: `/${category.strCategory}`,
+                  description: category.strCategoryDescription,
+                };
+              }
+            )}
+            meals={meals}
+          />
+          <NavMenuMobile
+            categories={categories.map(
               (category: {
                 idCategory: string;
                 strCategory: string;

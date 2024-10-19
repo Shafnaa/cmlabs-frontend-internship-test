@@ -16,7 +16,7 @@ const MealCard = ({
   return (
     <li>
       <Link href={`/${category}/${meal.idMeal}`} passHref>
-        <div className="relative aspect-square flex justify-center items-center overflow-hidden p-4 rounded-md">
+        <div className="relative aspect-square flex justify-center items-center overflow-hidden p-2 md:p-4 rounded-md">
           <div className="absolute w-full h-full ">
             <Image
               src={meal.strMealThumb}
@@ -26,7 +26,7 @@ const MealCard = ({
               className="w-full h-full object-cover brightness-50 backdrop-brightness-125 backdrop-blur-sm"
             />
           </div>
-          <h3 className="relative text-white text-3xl text-center">
+          <h3 className="relative text-white md:text-3xl text-center">
             {meal.strMeal}
           </h3>
         </div>

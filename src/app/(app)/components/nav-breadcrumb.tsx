@@ -16,7 +16,7 @@ const NavBreadcrumb = () => {
   const pathname = usePathname();
 
   return (
-    <Breadcrumb className="hidden md:flex container mx-auto">
+    <Breadcrumb className="flex container mx-auto">
       <BreadcrumbList>
         {pathname !== "/" ? (
           <>

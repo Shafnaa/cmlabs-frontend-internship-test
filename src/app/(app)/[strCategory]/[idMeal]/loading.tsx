@@ -4,7 +4,7 @@ import React from "react";
 
 const loading = () => {
   return (
-    <section className="grid grid-cols-6 space-y-4 gap-2">
+    <section className="flex flex-col md:grid md:grid-cols-6 space-y-4 gap-2">
       <div className="col-span-full space-y-2 pb-2 border-b">
         <Skeleton className="col-span-full h-10 w-3/4" />
 
@@ -17,7 +17,7 @@ const loading = () => {
           </Badge>
         </div>
       </div>
-      <Skeleton className="col-span-2 shadow-lg rounded-xl" />
+      <Skeleton className="col-span-2 aspect-square shadow-lg rounded-xl" />
       <div className="col-span-4 space-y-2">
         <div className="space-y-2">
           <h2 className="font-medium text-3xl">Instructions:</h2>
