@@ -12,7 +12,7 @@ const page = async ({ params }: { params: { idMeal: string } }) => {
   const meal = await getMealsById(params.idMeal);
 
   return (
-    <section className="flex flex-col md:grid md:grid-cols-6 space-y-4">
+    <section className="flex flex-col md:grid md:grid-cols-6 gap-2 md:gap-8 space-y-4">
       <div className="col-span-full space-y-2 pb-2 border-b">
         <h1 className="text-4xl font-semibold">{meal.strMeal}</h1>
 
